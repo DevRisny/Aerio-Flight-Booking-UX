@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aerio · Flight Booking App · UX Case Study</title>
+<meta name="description" content="UI/UX case study: an end-to-end flight booking app with fare comparison, cabin seat map and digital boarding pass.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prototype.css">
+<style>
+  body { margin: 0; font-family: var(--font); color: var(--ink); background: #fff; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+  header.hero { background: radial-gradient(900px 480px at 10% 0%, #E6F0FF, transparent 60%), radial-gradient(700px 480px at 100% 100%, #FFF1EC, transparent 60%), #F7F9FD; border-bottom: 1px solid var(--line); }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-top: 56px; padding-bottom: 56px; }
+  @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .eyebrow { font-weight: 800; color: var(--blue); letter-spacing: .12em; font-size: 12.5px; }
+  h1 { font-size: 54px; line-height: 1.03; letter-spacing: -.04em; margin: 10px 0 16px; }
+  h1 span { color: var(--blue); }
+  .lead { font-size: 18px; color: var(--body); line-height: 1.6; margin: 0 0 24px; }
+  .facts { display: grid; grid-template-columns: repeat(4, auto); gap: 10px 26px; margin-bottom: 26px; }
+  .facts div b { display: block; font-size: 15px; }
+  .facts div span { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cta a { text-decoration: none; padding: 13px 20px; border-radius: 14px; font-weight: 800; }
+  .cta .p { background: var(--blue); color: #fff; box-shadow: 0 10px 24px rgba(47,91,234,.3); }
+  .cta .s { background: #fff; color: var(--blue); box-shadow: inset 0 0 0 1.5px var(--blue); }
+  .hero-phone { display: flex; justify-content: center; }
+  .hero-phone iframe { width: 430px; height: 880px; border: 0; transform: scale(.82); transform-origin: top center; margin-bottom: -158px; }
+  section { padding: 70px 0; border-bottom: 1px solid var(--line); }
+  section.alt { background: #F9FAFD; }
+  h2 { font-size: 34px; letter-spacing: -.03em; margin: 6px 0 12px; }
+  h3 { font-size: 18px; margin: 0 0 8px; }
+  p { line-height: 1.65; color: var(--body); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .grid2, .grid3, .grid4 { grid-template-columns: 1fr; } }
+  .box { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: var(--sh); }
+  .box p { margin: 6px 0 0; font-size: 14.5px; }
+  .num { width: 36px; height: 36px; border-radius: 11px; background: var(--blue-50); color: var(--blue); display: grid; place-items: center; font-weight: 800; margin-bottom: 12px; }
+  .persona { display: grid; grid-template-columns: 64px 1fr; gap: 16px; }
+  .avatar { width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 22px; }
+  ul.clean { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 7px; font-size: 14.5px; color: var(--body); }
+  ul.clean li::before { content: "→ "; color: var(--blue); font-weight: 800; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--sh); }
+  th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { background: #F5F7FC; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .flow { overflow-x: auto; padding: 10px 0; }
+  .swatch { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .swatch .c { height: 84px; }
+  .swatch .t { padding: 10px 12px; font-size: 13px; }
+  .swatch .t b { display: block; }
+  .pass { color: var(--green); font-weight: 800; }
+  .type-row { display: flex; align-items: baseline; gap: 18px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .type-row span { width: 130px; color: var(--muted); font-size: 12.5px; font-weight: 700; flex: none; }
+  .screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  @media (max-width: 900px) { .screens { grid-template-columns: 1fr 1fr; } }
+  .screens figure { margin: 0; text-align: center; }
+  .screens img { width: 100%; max-width: 300px; }
+  .screens figcaption { font-weight: 700; font-size: 14px; margin-top: 8px; }
+  .screens figcaption span { display: block; font-weight: 500; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .wire { background: #fff; border: 1.5px solid #CBD5E1; border-radius: 26px; min-height: 420px; padding: 16px; display: grid; gap: 10px; align-content: start; }
+  .wire i { display: block; background: #E2E8F0; border-radius: 8px; }
+  .wire .lbl { font-size: 12px; font-weight: 800; color: var(--muted); text-align: center; }
+  .components { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--blue); font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">UI/UX CASE STUDY · PYNEXIA TECH · WEEK 4</div>
+      <h1>Booking a flight, <span>without the stress.</span></h1>
+      <p class="lead">Aerio is a mobile flight-booking app. You search, compare fares side by side and pick a seat on a real cabin map. You see every rupee before you pay, then fly with an offline boarding pass.</p>
+      <div class="facts">
+        <div><b>Role</b><span>UX research · UI design · Prototype</span></div>
+        <div><b>Platform</b><span>iOS & Android (390 × 844)</span></div>
+        <div><b>Screens</b><span>9 high-fidelity, all clickable</span></div>
+        <div><b>Standard</b><span>WCAG 2.2 AA contrast</span></div>
+      </div>
+      <div class="cta"><a class="p" href="prototype.html">▶ Open full prototype</a><a class="s" href="#design-system">Design system</a></div>
+    </div>
+    <div class="hero-phone"><iframe src="prototype.html?embed" title="Aerio interactive prototype"></iframe></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">01 · THE PROBLEM</div>
+    <h2>Flight apps make you work too hard to feel sure you got it right</h2>
+    <p style="max-width:760px">A heuristic review of popular booking flows showed the same pain points again and again. The goal of Aerio was to remove each of them.</p>
+    <div class="grid4" style="margin-top:22px">
+      <div class="box"><div class="num">1</div><h3>Hidden costs</h3><p>Taxes, seat and bag fees appear only at the last step, so the "cheap" fare isn't cheap.</p></div>
+      <div class="box"><div class="num">2</div><h3>Fares are hard to compare</h3><p>Fare names like "Lite" or "Value" don't explain what you actually get.</p></div>
+      <div class="box"><div class="num">3</div><h3>Confusing seat maps</h3><p>Tiny seats, unclear prices and colour-only legends that some people can't read.</p></div>
+      <div class="box"><div class="num">4</div><h3>Scattered trip info</h3><p>Gate, boarding time and status live in emails, SMS and the airport screens.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">02 · USERS</div>
+    <h2>Two travellers, two priorities</h2>
+    <div class="grid2" style="margin-top:20px">
+      <div class="box persona"><div class="avatar" style="background:linear-gradient(135deg,#10B981,#34D399)">NP</div>
+        <div><h3>Nadeesha, 22 · Student traveller</h3><p>Flies home to Colombo twice a year on a tight budget. Books on her phone, often late at night.</p>
+          <ul class="clean"><li>Needs: the true total price up front</li><li>Fears: picking a fare with no checked bag</li><li>Wins with: fare calendar, "cheapest" sort, clear inclusions</li></ul></div></div>
+      <div class="box persona"><div class="avatar" style="background:linear-gradient(135deg,#2F5BEA,#7AA2FF)">AK</div>
+        <div><h3>Arjun, 36 · Frequent business flyer</h3><p>Travels every month to Singapore and Dubai. Values time, legroom and flexibility over price.</p>
+          <ul class="clean"><li>Needs: fastest options and flexible changes</li><li>Fears: missing a gate change or delay</li><li>Wins with: status tags, extra-legroom seats, live boarding pass</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">03 · USER FLOW</div>
+    <h2>From "where to?" to the gate in 7 steps</h2>
+    <p style="max-width:760px">The happy path keeps one main action per screen. The price stays visible in a sticky bar from fare choice to payment. Manage-booking actions loop back into the same screens (change seat → seat map, change date → calendar).</p>
+    <div class="flow"><svg viewBox="0 0 1100 210" width="1100" role="img" aria-label="User flow diagram">
+      <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2F5BEA"/></marker></defs>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+        ${""}
+      </g>
+    </svg></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">04 · WIREFRAMES</div>
+    <h2>Low-fidelity first: structure before style</h2>
+    <p style="max-width:760px">Grey-box wireframes fixed the information order on the four hardest screens before any colour was added. The tests: can you see the total price, the stops and the fare inclusions without scrolling?</p>
+    <div class="grid4" style="margin-top:20px" id="wires"></div>
+  </div>
+</section>
+
+<section id="design-system">
+  <div class="wrap">
+    <div class="eyebrow">05 · DESIGN SYSTEM</div>
+    <h2>Calm, light and readable everywhere</h2>
+    <p style="max-width:760px">One blue for actions, coral only for premium extras, and status colours that always come with text. Every text colour below is checked against its background live in your browser using the WCAG 2.2 formula.</p>
+    <div class="grid4" id="swatches" style="margin-top:20px"></div>
+    <div class="grid2" style="margin-top:34px">
+      <div class="box"><h3>Type scale · Plus Jakarta Sans</h3>
+        <div class="type-row"><span>Display 30/800</span><b style="font-size:30px;letter-spacing:-.02em">CMB → SIN</b></div>
+        <div class="type-row"><span>Title 18/800</span><b style="font-size:18px">Choose your fare</b></div>
+        <div class="type-row"><span>Body 14/600</span><span style="font-size:14px;width:auto;color:var(--body);font-weight:600">Non-stop · 3h 55m</span></div>
+        <div class="type-row"><span>Label 11/700 caps</span><span class="label" style="width:auto">Travellers & class</span></div>
+      </div>
+      <div class="box"><h3>Components</h3>
+        <div class="components" style="margin-top:12px">
+          <button class="btn" style="width:auto;padding:0 22px">Primary</button>
+          <button class="btn secondary" style="width:auto;padding:0 22px">Secondary</button>
+          <span class="chip on">Round trip</span><span class="chip">One way</span>
+          <span class="tag ok">On time</span><span class="tag warn">Delayed 25m</span><span class="tag bad">Cancelled</span><span class="tag info">Few seats left</span>
+        </div>
+        <p style="font-size:14px;margin-top:16px"><b>Spacing</b> 4-pt grid · <b>Radius</b> 10 / 16 / 22 · <b>Touch targets</b> ≥ 44 × 44 px · <b>Elevation</b> one soft shadow level</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">06 · HIGH-FIDELITY SCREENS</div>
+    <h2>Nine screens, one connected journey</h2>
+    <div class="screens" style="margin-top:26px" id="screens"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">07 · KEY DESIGN DECISIONS</div>
+    <h2>Why it looks the way it does</h2>
+    <div class="grid3" style="margin-top:20px">
+      <div class="box"><h3>💸 Total price is never hidden</h3><p>The fare price includes the round trip. A sticky bar shows the running total from the fare step on, and the review screen itemises every charge before the Pay button, which repeats the exact total.</p></div>
+      <div class="box"><h3>✅ Fares as a checklist</h3><p>Each fare lists the same 5 rows (bag, checked bag, seat, changes, refund) with ✓ / ✕ in matching positions. You can compare by scanning down instead of reading.</p></div>
+      <div class="box"><h3>💺 Seat map that works for everyone</h3><p>Big 38 px seats, row numbers in the aisle and exit rows marked. Taken seats show "×", not just grey. Every seat has an accessible label ("Seat 14A extra legroom").</p></div>
+      <div class="box"><h3>🚦 Status = colour + words</h3><p>"On time", "Delayed 25m" and "Few seats left" always pair colour with text and a dot, so colour-blind users and glanceable reading both work.</p></div>
+      <div class="box"><h3>📅 Prices on the calendar</h3><p>Each date shows the lowest fare. Cheaper days are green, and a tip suggests a cheaper nearby day. This answers Nadeesha's question before she even searches.</p></div>
+      <div class="box"><h3>🎫 One boarding pass, offline</h3><p>Gate, seat, group, boarding time and live status sit on one card with a large QR code. A reminder shows when the gate closes and how long the walk takes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">08 · USABILITY TEST PLAN</div>
+    <h2>How we'll know it works</h2>
+    <p style="max-width:760px">Next step: moderated tests with 5 participants (3 budget travellers, 2 frequent flyers) using this prototype.</p>
+    <table style="margin-top:18px">
+      <tr><th>Task</th><th>Success means</th><th>Target</th></tr>
+      <tr><td>Find the cheapest round trip CMB → SIN in the week of 16 Nov</td><td>Uses the date strip or calendar to pick the lowest day</td><td>≤ 60 s, 4/5 succeed</td></tr>
+      <tr><td>Choose a fare that includes a checked bag</td><td>Selects Classic or Flex without asking</td><td>5/5 succeed</td></tr>
+      <tr><td>Pick a seat with extra legroom</td><td>Finds row 10/14 and understands the price</td><td>≤ 30 s</td></tr>
+      <tr><td>Say the total price before paying</td><td>States the exact total from the review screen</td><td>5/5 correct</td></tr>
+      <tr><td>Find your gate and boarding time</td><td>Opens the boarding pass from the nav bar</td><td>≤ 10 s</td></tr>
+    </table>
+    <p style="font-size:14px;margin-top:16px"><b>Measures:</b> task success, time on task, misclicks, SEQ (single ease question 1–7) after each task, and SUS at the end.</p>
+  </div>
+</section>
+
+<footer>Designed by <b>Junaideen Risny Suha</b> · Pynexia Tech UI/UX Internship · Week 4 · Airlines in this concept are fictional · <a href="https://github.com/DevRisny/Aerio-Flight-Booking-UX">Source on GitHub</a></footer>
+
+<script>
+  // ---------- user flow diagram
+  const steps = [["Search", "route · dates · pax"], ["Calendar", "fare per day"], ["Results", "sort · status"], ["Fare", "Saver / Classic / Flex"], ["Seat map", "legroom · exits"], ["Review & pay", "price breakdown"], ["Boarding pass", "QR · gate · status"]];
+  const svg = document.querySelector(".flow svg g");
+  svg.innerHTML = steps.map(([t, s], i) => {
+    const x = 20 + i * 155;
+    return `<rect x="${x}" y="40" width="130" height="70" rx="16" fill="${i === steps.length - 1 ? "#2F5BEA" : "#fff"}" stroke="#2F5BEA" stroke-width="1.5"/>
+      <text x="${x + 65}" y="70" fill="${i === steps.length - 1 ? "#fff" : "#0F172A"}">${t}</text>
+      <text x="${x + 65}" y="92" font-size="11" font-weight="600" fill="${i === steps.length - 1 ? "#DCE6FF" : "#64748B"}">${s}</text>
+      ${i < steps.length - 1 ? `<path d="M${x + 132} 75 H${x + 152}" stroke="#2F5BEA" stroke-width="2" marker-end="url(#a)"/>` : ""}`;
+  }).join("") + `
+    <rect x="485" y="150" width="130" height="46" rx="14" fill="#EEF3FF" stroke="#2F5BEA" stroke-dasharray="5 4"/>
+    <text x="550" y="178" fill="#2449C7">My trips</text>
+    <path d="M550 150 V 112" stroke="#2F5BEA" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#a)"/>
+    <path d="M615 173 H 1010 V 112" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#a)"/>
+    <text x="800" y="166" font-size="11" font-weight="600" fill="#64748B">manage: change seat · add bags · change date · cancel</text>`;
+
+  // ---------- wireframes
+  const W = {
+    "Search": ["h:18:60%", "h:26:80%", "h:70:100%", "row", "h:44:100%", "h:44:100%", "h:30:40%", "h:60:100%"],
+    "Results": ["h:20:70%", "h:34:100%", "h:24:100%", "h:96:100%", "h:96:100%", "h:60:100%"],
+    "Fare choice": ["h:20:70%", "h:70:100%", "h:70:100%", "h:84:100%", "h:70:100%", "h:44:100%"],
+    "Seat map": ["h:20:70%", "h:16:100%", "grid", "h:44:100%"],
+  };
+  document.getElementById("wires").innerHTML = Object.entries(W).map(([name, parts]) => `<div><div class="wire">${parts.map((p) => {
+    if (p === "row") return `<div style="display:flex;gap:8px"><i style="height:44px;flex:1"></i><i style="height:44px;flex:1"></i></div>`;
+    if (p === "grid") return `<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">${Array.from({ length: 63 }, (_, k) => `<i style="height:22px;${k % 7 === 3 ? "background:transparent" : ""}"></i>`).join("")}</div>`;
+    const [, h, w] = p.split(":");
+    return `<i style="height:${h}px;width:${w}"></i>`;
+  }).join("")}</div><div class="wire lbl" style="height:auto;border:0;padding:8px 0 0;background:none">${name}</div></div>`).join("");
+
+  // ---------- colour swatches with live WCAG contrast
+  function lum(hex) {
+    const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+  const SW = [["Blue · action", "#2F5BEA", "#FFFFFF", "white text"], ["Ink · headings", "#0F172A", "#FFFFFF", "on white"], ["Body text", "#334155", "#FFFFFF", "on white"], ["Muted text", "#64748B", "#FFFFFF", "on white"],
+    ["Green · on time", "#0F7A57", "#E7F7F0", "on its tint"], ["Amber · delayed", "#B45309", "#FFF6E5", "on its tint"], ["Red · cancelled", "#C8213B", "#FFEEF1", "on its tint"], ["Coral · premium", "#B23C1F", "#FFF1EC", "on its tint"]];
+  document.getElementById("swatches").innerHTML = SW.map(([n, fg, bg, how]) => {
+    const r = ratio(fg, bg);
+    const pass = r >= 7 ? "AAA" : r >= 4.5 ? "AA" : r >= 3 ? "AA large" : "Fail";
+    const solid = how === "white text";
+    return `<div class="swatch"><div class="c" style="background:${solid || how === "on white" ? fg : bg};display:grid;place-items:center;color:${solid ? "#fff" : how === "on white" ? "#fff" : fg};font-weight:800">${how === "on its tint" ? "Aa · Status" : fg}</div>
+      <div class="t"><b>${n}</b>${fg} · ${how}<br><span class="pass">${r.toFixed(2)} : 1 · ${pass} ✓</span></div></div>`;
+  }).join("");
+
+  // ---------- screens gallery
+  const S = [["search", "Search", "Swap, trip type, travellers in one card"], ["calendar", "Fare calendar", "Lowest price on every date"], ["results", "Results", "Timeline, stops, status and total price"],
+    ["fares", "Fare comparison", "Same 5 inclusions, scannable ✓ / ✕"], ["seats", "Seat map", "Exit rows, legroom pricing, accessible labels"], ["review", "Review & pay", "Every charge itemised before paying"],
+    ["success", "Confirmation", "Booking reference and next actions"], ["pass", "Boarding pass", "Gate, group, boarding time, QR"], ["trips", "My trips", "Check-in progress and manage booking"]];
+  document.getElementById("screens").innerHTML = S.map(([f, t, d]) => `<figure><img src="screens/${f}.png" alt="${t} screen"><figcaption>${t}<span>${d}</span></figcaption></figure>`).join("");
+</script>
+</body>
+</html>
